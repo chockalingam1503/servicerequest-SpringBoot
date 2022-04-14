@@ -2,6 +2,8 @@ package com.training.service.productandservice.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -22,10 +24,12 @@ import lombok.ToString;
 public class Request {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String description;
 	private String status;
-	private String productId;
+	@Column(name = "product")
+	private String productName;
 	@Column(name = "user_id")
 	private int userId;
 
