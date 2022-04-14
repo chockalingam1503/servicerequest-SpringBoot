@@ -1,5 +1,6 @@
 package com.training.service.productandservice.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,19 +22,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Entity(name="user")
+@Entity(name = "user")
 public class User {
 
-@Column(name="userid")
-@Id
-@GeneratedValue(strategy=GenerationType.AUTO)  
-private int id;
-private String name;
-private String password;
-@OneToOne
-private Address addressId;
-private String phone;
-private int userStatus;
-
+	@Column(name = "userid")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private String password;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "addressid")
+	private Address addressId;
+	private String phone;
+	@Column(name = "userstatus")
+	private int userStatus;
 
 }

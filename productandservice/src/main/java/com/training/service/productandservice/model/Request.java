@@ -18,16 +18,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Entity(name="request")
+@Entity(name = "request")
 public class Request {
-	
+
 	@Id
 	private int id;
 	private String description;
 	private String status;
 	private String productId;
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private int userId;
-	
 
 }

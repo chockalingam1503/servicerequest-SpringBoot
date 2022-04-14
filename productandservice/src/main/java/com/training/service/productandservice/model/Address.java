@@ -17,23 +17,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Entity(name="address")
+@Entity(name = "address")
 public class Address {
 
-@Id
-@GeneratedValue(strategy=GenerationType.AUTO)  
-private int id;
-@Column(name="flat_no")
-private String flatNo;
-@Column(name="flat_name")
-private String flatName;
-private String street;
-private String area;
-@Column(name="city/village")
-private String cityOrVillageName;
-@Column(name="pin")
-private String pinCode;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name = "flat_no")
+	private String flatNo;
+	@Column(name = "flat_name")
+	private String flatName;
+	private String street;
+	private String area;
+	@Column(name = "cityorvillage")
+	private String cityOrVillageName;
+	@Column(name = "pin")
+	private String pinCode;
 
-
-	
 }
