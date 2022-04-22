@@ -5,12 +5,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.training.service.productandservice.exceptions.RequestNotFoundException;
 import com.training.service.productandservice.exceptions.UserNotFoundException;
 import com.training.service.productandservice.model.Request;
 import com.training.service.productandservice.model.User;
@@ -27,12 +29,16 @@ public class RequestController {
 	@Autowired
 	RequestService requestService;
 
-	@PostMapping("/findRequestById")
-	public ResponseEntity<String> findRequestByid(@RequestParam(name = "requestId") int requestId) {
+	@GetMapping("/findRequestById")
+	public ResponseEntity<Request> findRequestByid(@RequestParam(name = "requestId") int requestId) throws RequestNotFoundException {
 
 		Optional<Request> request = requestService.findRequest(requestId);
-
-		return new ResponseEntity<String>(request.toString(), HttpStatus.OK);
+		
+		if(request.isPresent()) {
+			return new ResponseEntity<Request>(request.get(), HttpStatus.OK);  
+		} else {
+			 throw new RequestNotFoundException("Invalid Request");
+		}
 
 	}
 
@@ -50,7 +56,6 @@ public class RequestController {
 			return new ResponseEntity<String>(requst.toString(), HttpStatus.OK);
 		} else {
 			 throw new UserNotFoundException("Invalid user");
-			//return new ResponseEntity<String>("In valid user", HttpStatus.BAD_REQUEST);
 		}
 
 	}

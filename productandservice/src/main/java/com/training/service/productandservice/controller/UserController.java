@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,12 @@ public class UserController {
 	RequestService requestService;
 
 
-	@PostMapping("/findUserById")
-	public ResponseEntity<String> findUserByid(@RequestParam(name = "userId") int userId) {
+	@GetMapping("/findUserById")
+	public ResponseEntity<User> findUserByid(@RequestParam(name = "userId") int userId) {
 
 		Optional<User> user1 = userService.findUser(userId);
 
-		return new ResponseEntity<String>(user1.toString(), HttpStatus.OK);
+		return new ResponseEntity<User>(user1.get(), HttpStatus.OK);
 
 	}
 
