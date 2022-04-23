@@ -1,4 +1,4 @@
-package com.training.service.productandservice.model;
+package com.training.service.productandservice.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

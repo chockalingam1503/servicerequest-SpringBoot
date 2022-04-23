@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.training.service.productandservice.model.UserResponse;
+import com.training.service.productandservice.data.UserResponse;
 
 @SpringBootTest
 class ProductandserviceApplicationTests {

@@ -1,4 +1,6 @@
-package com.training.service.productandservice.model;
+package com.training.service.productandservice.data;
+
+import java.util.List;
 
 import com.training.service.productandservice.exceptions.ErrorMessage;
 
@@ -16,12 +18,18 @@ import lombok.ToString;
 public class UserResponse {
 
 	private User user;
+	private List<User> userList;
 	private boolean errorFlag = false;
 	private ErrorMessage errorDetails;
 
 	public UserResponse(User user) {
 		super();
 		this.user = user;
+	}
+	
+	public UserResponse( List<User> userList) {
+		super();
+		this.userList = userList;
 	}
 
 	public UserResponse(ErrorMessage errorDetails) {

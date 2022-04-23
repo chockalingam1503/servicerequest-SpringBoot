@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.training.service.productandservice.dao.RequestRepository;
 import com.training.service.productandservice.dao.UserRepository;
-import com.training.service.productandservice.model.Request;
-import com.training.service.productandservice.model.User;
+import com.training.service.productandservice.data.Request;
+import com.training.service.productandservice.data.User;
 
 @Component
 public class UserService {
@@ -27,6 +27,12 @@ public class UserService {
 	public Optional<User> findUser(int userId) {
 
 		return userDao.findById(userId);
+
+	}
+	
+	public Iterable<User> findAllUsers() {
+
+		return userDao.findAll();
 
 	}
 
