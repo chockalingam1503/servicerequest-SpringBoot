@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,20 @@ public class RequestController {
 
 	@GetMapping("/findRequestById")
 	public ResponseEntity<RequestResponse> findRequestByid(@RequestParam(name = "requestId") int requestId)
+			throws RequestNotFoundException {
+
+		Optional<Request> request = requestService.findRequest(requestId);
+
+		if (request.isPresent()) {
+			return new ResponseEntity<RequestResponse>(new RequestResponse(request.get()), HttpStatus.OK);
+		} else {
+			throw new RequestNotFoundException("Request id " + requestId + " not found in our records");
+		}
+
+	}
+	
+	@GetMapping("/findRequestByIdPathParam/{requestid}")
+	public ResponseEntity<RequestResponse> findRequestByidPathParam(@PathVariable ("requestid") int requestId)
 			throws RequestNotFoundException {
 
 		Optional<Request> request = requestService.findRequest(requestId);
@@ -115,6 +130,23 @@ public class RequestController {
 			throw new Exception("Invalid Request, hence Request cannot be updated");
 		}
 
+	}
+	
+	
+	@PutMapping("/updaterequeststatus")
+	public ResponseEntity<RequestResponse> updateRequestStatus(@RequestParam(name = "requestId") int requestId , @RequestParam(name = "newstatus") String newStatus) throws Exception {
+			
+		Optional<Request> request = requestService.findRequest(requestId);
+		
+		if(request.isPresent()) {
+			request.get().setStatus(newStatus);
+			Request request1 = requestService.createOrUpdateRequest(request.get());
+			return new ResponseEntity<RequestResponse>(new RequestResponse(request1), HttpStatus.OK);
+		} else {
+			throw new Exception("Unable to update requst status , check the request id properly");
+		}
+		
+	
 	}
 
 }

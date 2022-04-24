@@ -9,19 +9,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.springframework.stereotype.Component;
+
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@ToString
+//@EqualsAndHashCode
+@Data
 @Entity(name = "user")
 public class User {
 
@@ -37,5 +42,12 @@ public class User {
 	private String phone;
 	@Column(name = "userstatus")
 	private int userStatus;
+	
+	
+//	public User() {
+//		System.out.println("User object created");
+//	}
+	
+	
 
 }
