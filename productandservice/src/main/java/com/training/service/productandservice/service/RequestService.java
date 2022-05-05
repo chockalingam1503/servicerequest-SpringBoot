@@ -34,6 +34,12 @@ public class RequestService {
 
 	}
 	
+//	public Iterable<Request> findAllOpenRequest() {
+//
+//		return requestDao.findAllOpenRequest();
+//
+//	}
+	
 	
 	public List<Request> findAllRequestByUserId(int userId) {
 

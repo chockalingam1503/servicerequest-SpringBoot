@@ -11,5 +11,7 @@ public interface RequestRepository extends CrudRepository<Request, Integer> {
 	
 	@Query("FROM request where user_id= ?1")
 	List<Request> findAllRequestByUserId(int id) ;
+	
+
 
 }
