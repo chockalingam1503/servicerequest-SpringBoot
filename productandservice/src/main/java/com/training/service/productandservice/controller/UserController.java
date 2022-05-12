@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,9 @@ public class UserController {
 	@Autowired
 	RequestService requestService;
 
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+
 	@GetMapping("/findUserById")
 	public ResponseEntity<UserResponse> findUserByid(@RequestParam(name = "userId") int userId)
 			throws UserNotFoundException {
@@ -39,6 +43,21 @@ public class UserController {
 
 		if (user1.isPresent()) {
 			return new ResponseEntity<UserResponse>(new UserResponse(user1.get()), HttpStatus.OK);
+		} else {
+			throw new UserNotFoundException("Invalid User id");
+		}
+
+	}
+	
+	@GetMapping("/findUserByUserName")
+	public ResponseEntity<UserResponse> findUserByUserName(@RequestParam(name = "username") String userName)
+			throws UserNotFoundException {
+
+		User user1 = userService.findByUsername(userName);
+		Optional<User> opt= Optional.ofNullable(user1);
+
+		if (opt.isPresent()) {
+			return new ResponseEntity<UserResponse>(new UserResponse(user1), HttpStatus.OK);
 		} else {
 			throw new UserNotFoundException("Invalid User id");
 		}
@@ -62,9 +81,11 @@ public class UserController {
 		}
 
 	}
-
+// unused end point
 	@PostMapping("/addUser")
 	public ResponseEntity<UserResponse> createUser(@RequestBody User user) throws Exception {
+
+		user.setPassword(bcryptEncoder.encode(user.getPassword()));
 
 		User user1 = userService.createUser(user);
 

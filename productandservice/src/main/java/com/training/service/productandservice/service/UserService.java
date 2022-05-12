@@ -29,11 +29,21 @@ public class UserService {
 		return userDao.findById(userId);
 
 	}
-	
+
+	public Optional<User> findByUserId(int userId) {
+
+		return userDao.findById(userId);
+
+	}
+
 	public Iterable<User> findAllUsers() {
 
 		return userDao.findAll();
 
+	}
+
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 
 }

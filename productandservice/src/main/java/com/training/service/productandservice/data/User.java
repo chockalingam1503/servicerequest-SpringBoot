@@ -9,23 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-//@Getter
-//@Setter
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@ToString
-//@EqualsAndHashCode
 @Data
 @Entity(name = "user")
 public class User {
@@ -34,7 +21,11 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column
+	private String username;
+	@Column
 	private String name;
+	@Column
 	private String password;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "addressid")
@@ -42,12 +33,5 @@ public class User {
 	private String phone;
 	@Column(name = "userstatus")
 	private int userStatus;
-	
-	
-//	public User() {
-//		System.out.println("User object created");
-//	}
-	
-	
 
 }
